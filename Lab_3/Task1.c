@@ -18,9 +18,13 @@ void input(float* a, float* b, float* c, float* d, float* e, float* f) {
     } while (f_err != 6 || f_err2 == 1 || (*a * *e - *d * *b == 0) || *a == 0);
 }
 
+float midsolve(float a, float b, float c, float d, float e, float f) {
+    return (f - d * (c / a)) / (e - d * (b / a)); 
+}
+
 void solve(float a, float b, float c, float d, float e, float f, float* x, float* y) {
-    *x = (c / a) - ((b * (f - ((d * c) / a))) / (a * (e - ((d * b) / a))));
-    *y = (f - ((d * c) / a)) / (e - ((d * b) / a));
+    *x = (c / a) - (b / a) * midsolve(a, b, c, d, e, f);
+    *y = midsolve(a, b, c, d, e, f);
 }
 
 void print_result(float x, float y) {
